@@ -45,29 +45,49 @@
                 else {
                     computerNum = 2
                 }
+                const result = document.createElement("p");
                 if (humanNum === computerNum) {
-                    console.log("It's a tie!")
+                    result.textContent = "It's a tie!";
                 }
                 else if ((humanNum - computerNum + 3) % 3 === 1) {
-                    console.log(`You win! ${humanChoice} beats ${computerChoice}.`)
+                    result.textContent = `You win! ${humanChoice} beats ${computerChoice}.`;
                     humanScore++
                 }
                 else {
-                    console.log(`You lose! ${computerChoice} beats ${humanChoice}.`)
+                    result.textContent = `You lose! ${computerChoice} beats ${humanChoice}.`;
                     computerScore++
                 }
+                results.appendChild(result);
+                if (humanScore == 5) {
+                    const winner = document.createElement("p");
+                    winner.textContent = `Human Win! ${humanScore} to ${computerScore}`;
+                    results.appendChild(winner);
+                }
+                else if (computerScore == 5) {
+                    const winner = document.createElement("p");
+                    winner.textContent = `Computer Win! ${computerScore} to ${humanScore}`;
+                    results.appendChild(winner);
+                }
             }
-            playRound(getHumanChoice(), getComputerChoice())
-            playRound(getHumanChoice(), getComputerChoice())
-            playRound(getHumanChoice(), getComputerChoice())
-            playRound(getHumanChoice(), getComputerChoice())
-            playRound(getHumanChoice(), getComputerChoice())
-            if (humanScore > computerScore) {
-                console.log(`Human Win! ${humanScore} to ${computerScore}`)
-            }
-            else {
-                console.log(`Computer Win! ${computerScore} to ${humanScore}`)
-            }
+            const rock = document.createElement("button");
+            const paper = document.createElement("button");
+            const scissors = document.createElement("button");
+            rock.textContent = "rock";
+            paper.textContent = "paper";
+            scissors.textContent = "scissors";
+            document.body.appendChild(rock);
+            document.body.appendChild(paper);
+            document.body.appendChild(scissors);
+            const choices = document.querySelectorAll("button");
+            choices.forEach((choice) => {
+                choice.addEventListener("click", () => {
+                    playRound(choice.textContent, getComputerChoice());
+                });
+            });
+
+            const results = document.createElement("Div");
+            document.body.append(results)
+            
         }
         
         playGame()
